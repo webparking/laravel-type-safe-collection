@@ -1,0 +1,60 @@
+{
+  "name": "webparking/laravel-type-safe-collection",
+  "description": "",
+  "license": "MIT",
+  "keywords": [
+    "laravel",
+    "php",
+    "database",
+    "db",
+    "rebuild",
+    "seeding"
+  ],
+  "authors": [
+    {
+      "name": "Remko Brenters",
+      "email": "remko.brenters@webparking.nl"
+    },
+    {
+      "name": "Jeroen van Oort",
+      "email": "jeroen.vanoort@webparking.nl"
+    },
+    {
+      "name": "Peter Klooster",
+      "email": "peter.klooster@webparking.nl"
+    }
+  ],
+  "require": {
+    "php": ">=7.1.0",
+    "ext-json": "*",
+    "ext-posix": "*",
+    "illuminate/support": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
+    "illuminate/console": "~5.5.0|~5.6.0|~5.7.0|~5.8.0",
+    "illuminate/database": "~5.5.0|~5.6.0|~5.7.0|~5.8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Webparking\\TypeSafeCollection\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Webparking\\TypeSafeCollection\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "phpstan": "@php vendor/bin/phpstan analyse src tests/Feature -l max --no-progress --ansi",
+    "php-cs-fixer": "vendor/bin/php-cs-fixer fix . --config=.php_cs",
+    "phpunit": "vendor/bin/phpunit",
+    "test": "composer php-cs-fixer && composer phpstan && composer phpunit"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^2.12",
+    "phpunit/phpunit": "^6|^7.0",
+    "orchestra/testbench": "~3.5.0|~3.6.0|~3.7.0|~3.8.0",
+    "orchestra/database": "~3.5.0|~3.6.0|~3.7.0|~3.8.0",
+    "phpstan/phpstan": "^0.11.2"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
