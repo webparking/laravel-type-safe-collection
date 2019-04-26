@@ -1,14 +1,16 @@
 {
   "name": "webparking/laravel-type-safe-collection",
-  "description": "",
+  "description": "This package provides type-safe extension of the laravel collection, forcing a single type of object.",
   "license": "MIT",
   "keywords": [
     "laravel",
     "php",
     "database",
-    "db",
-    "rebuild",
-    "seeding"
+    "type",
+    "safe",
+    "typesafe",
+    "collection",
+    "collections",
   ],
   "authors": [
     {
