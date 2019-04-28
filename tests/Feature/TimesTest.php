@@ -7,18 +7,16 @@ use Webparking\TypeSafeCollection\Tests\Data\User;
 use Webparking\TypeSafeCollection\Tests\Data\UserCollection;
 use Webparking\TypeSafeCollection\Tests\TestCase;
 
-class ConstructorTest extends TestCase
+class TimesTest extends TestCase
 {
     /**
      * @doesNotPerformAssertions
      */
     public function testCorrect(): void
     {
-        new UserCollection([]);
-
-        new UserCollection([
-            new User(),
-        ]);
+        UserCollection::times(2, function () {
+            return new User();
+        });
     }
 
     /**
@@ -26,8 +24,8 @@ class ConstructorTest extends TestCase
      */
     public function testIncorrect(): void
     {
-        new UserCollection([
-            new Comment(),
-        ]);
+        UserCollection::times(2, function () {
+            return new Comment();
+        });
     }
 }
