@@ -7,24 +7,20 @@ use Webparking\TypeSafeCollection\Tests\Data\User;
 use Webparking\TypeSafeCollection\Tests\Data\UserCollection;
 use Webparking\TypeSafeCollection\Tests\TestCase;
 
-class TimesTest extends TestCase
+class DiffAssocUsingTest extends TestCase
 {
     public function testCorrect(): void
     {
-        $result = UserCollection::times(2, function () {
-            return new User();
+        $collection = new UserCollection([
+            'test' => new User(),
+        ]);
+
+        $result = $collection->diffAssocUsing([
+            'test' => new Comment(),
+        ], function ($original, $other) {
+            return true;
         });
 
         $this->assertInstanceOf(UserCollection::class, $result);
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testIncorrect(): void
-    {
-        UserCollection::times(2, function () {
-            return new Comment();
-        });
     }
 }

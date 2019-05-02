@@ -8,15 +8,12 @@ use Webparking\TypeSafeCollection\Tests\TestCase;
 
 class CollapseTest extends TestCase
 {
-    /**
-     * @doesNotPerformAssertions
-     */
     public function testCorrect(): void
     {
         $collection = new UserCollection([
             'test' => new User(),
         ]);
 
-        $collection->collapse();
+        $this->assertInstanceOf(UserCollection::class, $collection->collapse());
     }
 }

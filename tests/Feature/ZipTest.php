@@ -2,31 +2,24 @@
 
 namespace Webparking\TypeSafeCollection\Tests\Feature;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Webparking\TypeSafeCollection\Tests\Data\User;
 use Webparking\TypeSafeCollection\Tests\Data\UserCollection;
 use Webparking\TypeSafeCollection\Tests\TestCase;
 
-class ChunkTest extends TestCase
+class ZipTest extends TestCase
 {
     public function testCorrect(): void
     {
         $result = (new UserCollection([
             new User(),
             new User(),
-        ]))->chunk(1);
+        ]))->zip([
+            new User(),
+            new User(),
+        ]);
 
         $this->assertInstanceOf(Collection::class, $result);
         $this->assertInstanceOf(UserCollection::class, $result->first());
-    }
-
-    public function testCorrectEmpty(): void
-    {
-        $result = (new UserCollection([
-            new User(),
-            new User(),
-        ]))->chunk(0);
-
-        $this->assertInstanceOf(Collection::class, $result);
     }
 }

@@ -7,24 +7,18 @@ use Webparking\TypeSafeCollection\Tests\Data\User;
 use Webparking\TypeSafeCollection\Tests\Data\UserCollection;
 use Webparking\TypeSafeCollection\Tests\TestCase;
 
-class WrapTest extends TestCase
+class DiffAssocTest extends TestCase
 {
     public function testCorrect(): void
     {
-        $result = UserCollection::wrap([
-            new User(),
+        $collection = new UserCollection([
+            'test' => new User(),
+        ]);
+
+        $result = $collection->diffAssoc([
+            'test' => new Comment(),
         ]);
 
         $this->assertInstanceOf(UserCollection::class, $result);
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testIncorrect(): void
-    {
-        UserCollection::wrap([
-            new Comment(),
-        ]);
     }
 }

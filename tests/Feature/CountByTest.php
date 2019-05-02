@@ -2,12 +2,12 @@
 
 namespace Webparking\TypeSafeCollection\Tests\Feature;
 
-use Webparking\TypeSafeCollection\Tests\Data\Comment;
+use Illuminate\Support\Collection;
 use Webparking\TypeSafeCollection\Tests\Data\User;
 use Webparking\TypeSafeCollection\Tests\Data\UserCollection;
 use Webparking\TypeSafeCollection\Tests\TestCase;
 
-class DiffTest extends TestCase
+class CountByTest extends TestCase
 {
     public function testCorrect(): void
     {
@@ -15,10 +15,10 @@ class DiffTest extends TestCase
             new User(),
         ]);
 
-        $result = $collection->diff([
-            new Comment(),
-        ]);
+        $result = $collection->countBy(function () {
+            return 'test';
+        });
 
-        $this->assertInstanceOf(UserCollection::class, $result);
+        $this->assertInstanceOf(Collection::class, $result);
     }
 }

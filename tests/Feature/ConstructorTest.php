@@ -19,6 +19,8 @@ class ConstructorTest extends TestCase
         new UserCollection([
             new User(),
         ]);
+
+        new UserCollection(new User());
     }
 
     /**

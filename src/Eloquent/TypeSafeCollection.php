@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Webmozart\Assert\Assert;
+use Webparking\TypeSafeCollection\Exceptions\InvalidOperationException;
 
 abstract class TypeSafeCollection extends EloquentCollection
 {
@@ -102,6 +103,16 @@ abstract class TypeSafeCollection extends EloquentCollection
     }
 
     /**
+     * Flip the items in the collection.
+     *
+     * @throws InvalidOperationException
+     */
+    public function flip()
+    {
+        throw new InvalidOperationException('Flip() can never work on a TypeSafeCollection');
+    }
+
+    /**
      * Run a map over each of the items.
      *
      * @param  callable   $callback
@@ -152,6 +163,51 @@ abstract class TypeSafeCollection extends EloquentCollection
     }
 
     /**
+     * Map the values into a new class.
+     *
+     * @param  string     $class
+     * @return Collection
+     */
+    public function mapInto($class)
+    {
+        return $this->toBase()->mapInto($class);
+    }
+
+    /**
+     * Create a collection by using this collection for keys and another for its values.
+     *
+     * @param  mixed                     $values
+     * @throws InvalidOperationException
+     */
+    public function combine($values)
+    {
+        throw new InvalidOperationException('Flip() can never work on a TypeSafeCollection');
+    }
+
+    /**
+     * Partition the collection into two arrays using the given callback or key.
+     *
+     * @param  callable|string $key
+     * @param  mixed           $operator
+     * @param  mixed           $value
+     * @return Collection
+     */
+    public function partition($key, $operator = null, $value = null)
+    {
+        $partitions = [new static(), new static()];
+
+        $callback = \func_num_args() === 1
+            ? $this->valueRetriever($key)
+            : $this->operatorForWhere(...\func_get_args());
+
+        foreach ($this->items as $key => $item) {
+            $partitions[(int) !$callback($item, $key)][$key] = $item;
+        }
+
+        return new Collection($partitions);
+    }
+
+    /**
      * Group an associative array by a field or using a callback.
      *
      * @param  callable|string $groupBy
@@ -184,5 +240,53 @@ abstract class TypeSafeCollection extends EloquentCollection
         Assert::isInstanceOf($value, $this->type);
 
         parent::offsetSet($key, $value);
+    }
+
+    /**
+     * Zip the collection together with one or more arrays.
+     *
+     * e.g. new Collection([1, 2, 3])->zip([4, 5, 6]);
+     *      => [[1, 4], [2, 5], [3, 6]]
+     *
+     * @param  mixed      ...$items
+     * @return Collection
+     */
+    public function zip($items)
+    {
+        $arrayableItems = array_map(function ($items) {
+            return $this->getArrayableItems($items);
+        }, \func_get_args());
+
+        $params = array_merge([function () {
+            return new static(\func_get_args());
+        }, $this->items], $arrayableItems);
+
+        return new Collection(\call_user_func_array('array_map', $params));
+    }
+
+    /**
+     * Count the number of items in the collection using a given truth test.
+     *
+     * @param  callable|null $callback
+     * @return Collection
+     */
+    public function countBy($callback = null)
+    {
+        return $this->toBase()->countBy($callback);
+    }
+
+    /**
+     * Add an item to the collection.
+     *
+     * @param  mixed $item
+     * @return $this
+     */
+    public function add($item)
+    {
+        Assert::isInstanceOf($item, $this->type);
+
+        $this->items[] = $item;
+
+        return $this;
     }
 }

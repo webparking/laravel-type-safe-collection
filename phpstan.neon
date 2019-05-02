@@ -1,0 +1,4 @@
+parameters:
+    ignoreErrors:
+        - '#Parameter \#1 $value of method Illuminate\\Support\\Collection::valueRetriever\(\) expects string, \(callable\)|string given.#'
+        - '#Parameter \#2 $parameters of function call_user_func_array expects array<int, mixed>, array<int|string, mixed> given.#'

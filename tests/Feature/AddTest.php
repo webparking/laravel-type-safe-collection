@@ -7,13 +7,11 @@ use Webparking\TypeSafeCollection\Tests\Data\User;
 use Webparking\TypeSafeCollection\Tests\Data\UserCollection;
 use Webparking\TypeSafeCollection\Tests\TestCase;
 
-class WrapTest extends TestCase
+class AddTest extends TestCase
 {
     public function testCorrect(): void
     {
-        $result = UserCollection::wrap([
-            new User(),
-        ]);
+        $result = (new UserCollection())->add(new User());
 
         $this->assertInstanceOf(UserCollection::class, $result);
     }
@@ -23,8 +21,6 @@ class WrapTest extends TestCase
      */
     public function testIncorrect(): void
     {
-        UserCollection::wrap([
-            new Comment(),
-        ]);
+        (new UserCollection())->add(new Comment());
     }
 }

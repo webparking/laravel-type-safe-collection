@@ -9,14 +9,13 @@ use Webparking\TypeSafeCollection\Tests\TestCase;
 
 class MakeTest extends TestCase
 {
-    /**
-     * @doesNotPerformAssertions
-     */
     public function testCorrect(): void
     {
-        UserCollection::make([
+        $result = UserCollection::make([
             new User(),
         ]);
+
+        $this->assertInstanceOf(UserCollection::class, $result);
     }
 
     /**

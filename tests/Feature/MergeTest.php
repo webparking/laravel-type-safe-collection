@@ -7,11 +7,13 @@ use Webparking\TypeSafeCollection\Tests\Data\User;
 use Webparking\TypeSafeCollection\Tests\Data\UserCollection;
 use Webparking\TypeSafeCollection\Tests\TestCase;
 
-class WrapTest extends TestCase
+class MergeTest extends TestCase
 {
     public function testCorrect(): void
     {
-        $result = UserCollection::wrap([
+        $collection = new UserCollection([]);
+
+        $result = $collection->merge([
             new User(),
         ]);
 
@@ -23,7 +25,9 @@ class WrapTest extends TestCase
      */
     public function testIncorrect(): void
     {
-        UserCollection::wrap([
+        $collection = new UserCollection([]);
+
+        $collection->merge([
             new Comment(),
         ]);
     }
