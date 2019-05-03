@@ -15,6 +15,12 @@ class CountByTest extends TestCase
             new User(),
         ]);
 
+        if (!method_exists(Collection::class, 'countBy')) {
+            $this->assertTrue(true);
+
+            return;
+        }
+
         $result = $collection->countBy(function () {
             return 'test';
         });

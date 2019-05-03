@@ -15,6 +15,12 @@ class DuplicatesStrictTest extends TestCase
             new User(),
         ]);
 
+        if (!method_exists($collection, 'duplicatesStrict')) {
+            $this->assertTrue(true);
+
+            return;
+        }
+
         $result = $collection->duplicatesStrict();
 
         $this->assertInstanceOf(UserCollection::class, $result);

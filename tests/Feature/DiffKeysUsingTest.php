@@ -14,6 +14,12 @@ class DiffKeysUsingTest extends TestCase
             'test' => new User(),
         ]);
 
+        if (!method_exists($collection, 'diffKeysUsing')) {
+            $this->assertTrue(true);
+
+            return;
+        }
+
         $result = $collection->diffKeysUsing([
             'test',
         ], function ($key1, $key2) {

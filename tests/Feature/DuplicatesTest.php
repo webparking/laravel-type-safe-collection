@@ -15,6 +15,12 @@ class DuplicatesTest extends TestCase
             new User(),
         ]);
 
+        if (!method_exists($collection, 'duplicates')) {
+            $this->assertTrue(true);
+
+            return;
+        }
+
         $result = $collection->duplicates();
 
         $this->assertInstanceOf(UserCollection::class, $result);

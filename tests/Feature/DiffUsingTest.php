@@ -15,6 +15,12 @@ class DiffUsingTest extends TestCase
             new User(),
         ]);
 
+        if (!method_exists($collection, 'diffUsing')) {
+            $this->assertTrue(true);
+
+            return;
+        }
+
         $result = $collection->diffUsing([
             new Comment(),
         ], function ($original, $other) {

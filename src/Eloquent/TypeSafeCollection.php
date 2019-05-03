@@ -133,7 +133,13 @@ abstract class TypeSafeCollection extends EloquentCollection
      */
     public function mapToDictionary(callable $callback)
     {
-        return $this->toBase()->mapToDictionary($callback);
+        $base = $this->toBase();
+
+        if (method_exists($base, 'mapToDictionary')) {
+            return $base->mapToDictionary($callback);
+        }
+
+        throw new InvalidOperationException('This method is not implemented in the Collection you\'re using');
     }
 
     /**
@@ -272,7 +278,13 @@ abstract class TypeSafeCollection extends EloquentCollection
      */
     public function countBy($callback = null)
     {
-        return $this->toBase()->countBy($callback);
+        $base = $this->toBase();
+
+        if (method_exists($base, 'countBy')) {
+            return $base->countBy($callback);
+        }
+
+        throw new InvalidOperationException('This method is not implemented in the Collection you\'re using');
     }
 
     /**

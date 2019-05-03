@@ -15,6 +15,12 @@ class DiffAssocUsingTest extends TestCase
             'test' => new User(),
         ]);
 
+        if (!method_exists($collection, 'diffAssocUsing')) {
+            $this->assertTrue(true);
+
+            return;
+        }
+
         $result = $collection->diffAssocUsing([
             'test' => new Comment(),
         ], function ($original, $other) {
