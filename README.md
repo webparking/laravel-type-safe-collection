@@ -32,7 +32,7 @@ coming soon
  * @method \ArrayIterator|User[] getIterator()
  * @method User|null             first()
  */
-class User extends TypeSafeCollection
+class UserCollection extends TypeSafeCollection
 {
     protected $type = User::class;
 }
