@@ -11,6 +11,12 @@ class MapToDictionaryTest extends TestCase
 {
     public function testCorrect(): void
     {
+        if (!method_exists(Collection::class, 'mapToDictionary')) {
+            $this->assertTrue(true);
+
+            return;
+        }
+
         $result = (new UserCollection([
             new User(),
             new User(),
