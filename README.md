@@ -22,7 +22,7 @@ The `TypeSafeCollection` provided by this package will make sure that any object
 Add this package to composer.
 
 ```
-coming soon
+composer require webparking/laravel-type-safe-collection
 ```
 
 ## Usage
