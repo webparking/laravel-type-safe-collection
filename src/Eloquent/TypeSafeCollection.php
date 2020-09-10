@@ -10,6 +10,9 @@ use Webparking\TypeSafeCollection\Exceptions\InvalidOperationException;
 
 abstract class TypeSafeCollection extends EloquentCollection
 {
+    /**
+     * @var class-string
+     */
     protected $type;
 
     public function __construct($items = [])
@@ -115,7 +118,6 @@ abstract class TypeSafeCollection extends EloquentCollection
     /**
      * Run a map over each of the items.
      *
-     * @param  callable   $callback
      * @return Collection
      */
     public function map(callable $callback)
@@ -128,7 +130,6 @@ abstract class TypeSafeCollection extends EloquentCollection
      *
      * The callback should return an associative array with a single key/value pair.
      *
-     * @param  callable   $callback
      * @return Collection
      */
     public function mapToDictionary(callable $callback)
@@ -147,7 +148,6 @@ abstract class TypeSafeCollection extends EloquentCollection
      *
      * The callback should return an associative array with a single key/value pair.
      *
-     * @param  callable   $callback
      * @return Collection
      */
     public function mapToGroups(callable $callback)
@@ -160,7 +160,6 @@ abstract class TypeSafeCollection extends EloquentCollection
      *
      * The callback should return an associative array with a single key/value pair.
      *
-     * @param  callable   $callback
      * @return Collection
      */
     public function mapWithKeys(callable $callback)
@@ -193,9 +192,9 @@ abstract class TypeSafeCollection extends EloquentCollection
     /**
      * Partition the collection into two arrays using the given callback or key.
      *
-     * @param  callable|string $key
-     * @param  mixed           $operator
-     * @param  mixed           $value
+     * @param  mixed      $key
+     * @param  mixed      $operator
+     * @param  mixed      $value
      * @return Collection
      */
     public function partition($key, $operator = null, $value = null)
@@ -263,6 +262,7 @@ abstract class TypeSafeCollection extends EloquentCollection
             return $this->getArrayableItems($items);
         }, \func_get_args());
 
+        /** @var mixed[] $params */
         $params = array_merge([function () {
             return new static(\func_get_args());
         }, $this->items], $arrayableItems);
